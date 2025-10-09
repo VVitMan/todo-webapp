@@ -2,9 +2,9 @@ import Todo from "./todo";
 
 export default function App() {
   return (
-    <>
-      <h1>Todo Web App</h1>
+    <div className="bg-gray-50 min-h-screen">
+      {/* Todo List */}
       <Todo />
-    </>
+    </div>
   );
 }

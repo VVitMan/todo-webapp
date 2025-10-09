@@ -96,40 +96,72 @@ export default function Todo() {
 
   // Display status
   if (error) return <div>Error: {error}</div>;
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return <span className="loading loading-spinner loading-lg"></span>;
 
   return (
-    <div>
+    <div className="bg-base-100 max-w-full shadow-md p-6 min-h-screen">
+      <h1 className="text-2xl font-bold text-center mb-6">Todo List</h1>
+
       {/* Create a Task */}
-      <input
-        value={newTask}
-        onChange={(e) => setNewTask(e.target.value)}
-        type="text"
-        placeholder="Put your task"
-      />
-      <button onClick={() => handleCreate()}>Create</button>
+      <div className="flex gap-2 mb-4">
+        <input
+          className="input flex-1 bg-gray-200 text-base-100"
+          value={newTask}
+          onChange={(e) => setNewTask(e.target.value)}
+          type="text"
+          placeholder="Put your task"
+        />
+        <button className="btn btn-primary" onClick={() => handleCreate()}>
+          Create
+        </button>
+      </div>
 
       {/* Tasks List */}
-      <ul>
+      <ul className="list rounded-2xl shadow-md space-y-3">
         {tasks.map((task) => (
-          <li key={task.id}>
+          <li
+            className="list-row flex justify-between items-center p-3 rounded-lg border border-gray-600 text-shadow-white"
+            key={task.id}
+          >
             {editId === task.id ? (
-              <>
+              <div className="flex w-full gap-2">
                 {/* Edit Mode */}
                 <input
+                  className="input bg-white text-base-100"
                   type="text"
                   value={editText}
                   onChange={(e) => setEditText(e.target.value)}
                 />
-                <button onClick={() => handleUpdate(task.id)}>Save</button>
-              </>
+                <button
+                  className="btn btn-success"
+                  onClick={() => handleUpdate(task.id)}
+                >
+                  Save
+                </button>
+              </div>
             ) : (
               <>
-                {task.task}
-                {/* Edit Task */}
-                <button onClick={() => startEdit(task)}>Edit</button>
-                {/* Delete Task */}
-                <button onClick={() => handleDelete(task.id)}>Delete</button>
+                {/* Check box & Task name */}
+                <input type="checkbox" className="checkbox checkbox-primary" />
+                <span className="text-shadow-white items-center">{task.task}</span>
+
+                <div className="flex gap-2">
+                  {/* Edit Task */}
+                  <button
+                    className="btn btn-outline btn-sm btn-accent"
+                    onClick={() => startEdit(task)}
+                  >
+                    Edit
+                  </button>
+                  {/* Delete Task */}
+                  <button
+                    className="btn btn-outline btn-sm btn-secondary"
+                    onClick={() => handleDelete(task.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </>
             )}
           </li>
